@@ -13,7 +13,7 @@ services:
     healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION # must be fully qualified; match your local venv
-        value: 3.11.11
+        value: 3.12.11
       - key: CORS_ORIGINS # your frontend URL, e.g. https://credit-risk-web.onrender.com
         sync: false
 
