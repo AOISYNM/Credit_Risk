@@ -12,10 +12,19 @@ BASE_DIR = Path(__file__).resolve().parent
 ml_model = {}
 
 
+def find_file(name: str) -> Path:
+    """Look for a model file next to main.py, then in the repo root."""
+    for folder in (BASE_DIR, BASE_DIR.parent):
+        path = folder / name
+        if path.exists():
+            return path
+    raise FileNotFoundError(f"{name} not found in {BASE_DIR} or {BASE_DIR.parent}")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    ml_model["model"] = joblib.load(BASE_DIR / "credit_risk_model.pkl")
-    ml_model["threshold"] = float(joblib.load(BASE_DIR / "best_threshold.pkl"))
+    ml_model["model"] = joblib.load(find_file("credit_risk_model.pkl"))
+    ml_model["threshold"] = float(joblib.load(find_file("best_threshold.pkl")))
     yield
     ml_model.clear()
 
