@@ -8,7 +8,7 @@ import {
 } from "framer-motion";
 import type { LoanApplication, PredictionResponse, Status } from "../types";
 import { INTENT_LABELS, money, percent } from "../options";
-import { RiskRuler } from "./Riskruler";
+import { RiskRuler } from "./RiskRuler";
 
 interface Props {
   status: Status;
