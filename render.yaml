@@ -1,0 +1,31 @@
+# Render Blueprint. Keep this file at the root of the Credit_Risk repo.
+# Dashboard: New > Blueprint > pick this repo.
+
+services:
+  # ---------- FastAPI backend ----------
+  - type: web
+    name: credit-risk-api
+    runtime: python
+    plan: free
+    rootDir: code
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION # must be fully qualified; match your local venv
+        value: 3.11.11
+      - key: CORS_ORIGINS # your frontend URL, e.g. https://credit-risk-web.onrender.com
+        sync: false
+
+  # ---------- React (Vite) frontend ----------
+  - type: web
+    name: credit-risk-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: VITE_API_URL # your API URL, e.g. https://credit-risk-api.onrender.com (no trailing slash)
+        sync: false
