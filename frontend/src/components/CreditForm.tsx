@@ -10,7 +10,7 @@ import {
   INTENT_OPTIONS,
   money,
 } from "../options";
-import { MoneyField, Segmented, SliderField, Toggle } from "../Inputs";
+import { MoneyField, Segmented, SliderField, Toggle } from "./Inputs";
 
 interface Props {
   loading: boolean;
